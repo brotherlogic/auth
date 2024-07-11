@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "github.com/brotherlogic/auth/proto";
+
+message AuthToken {
+    string token = 1;
+    int64 creation_date = 2;
+}
+
+message GetTokenRequest {
+    string user = 1;
+    string password = 2;
+}
+
+message GetTokenResponse {
+    string token = 1;
+}
+
+message AuthenticateRequest {
+    string user = 1;
+    string token = 2;
+}
+
+message AuthenticateResponse {
+    
+}
+
+service AuthService {
+    rpc GetToken(GetTokenRequest) returns (GetTokenResponse) {};
+    rpc Authenticate(AuthenticateRequest) returns (AuthenticateResponse) {};
+}
