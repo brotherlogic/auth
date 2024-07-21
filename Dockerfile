@@ -2,7 +2,7 @@
 
 FROM golang:1.22 AS build
 
-WORKDIR $GOPATH/src/github.com/brotherlogic/gramophile
+WORKDIR $GOPATH/src/github.com/brotherlogic/auth
 
 COPY go.mod ./
 COPY go.sum ./
@@ -12,19 +12,6 @@ COPY proto/*.go ./proto/
 
 RUN mkdir server
 COPY server/*.go ./server/
-
-RUN mkdir db
-COPY db/*.go ./db/
-
-RUN mkdir queue_client
-COPY queue_client/*.go ./queue_client
-
-
-RUN mkdir background
-COPY background/*.go ./background/
-
-RUN mkdir config
-COPY config/*.go ./config/
 
 RUN go mod download
 
@@ -39,14 +26,12 @@ FROM gcr.io/distroless/base-debian11
 
 WORKDIR /
 
-COPY --from=build /gramophile /gramophile
+COPY --from=build /auth /auth
 
-EXPOSE 80
 EXPOSE 8080
 EXPOSE 8081
 EXPOSE 8082
-EXPOSE 8083
 
 USER nonroot:nonroot
 
-ENTRYPOINT ["/gramophile"]
+ENTRYPOINT ["/auth"]
