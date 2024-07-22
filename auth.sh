@@ -1,0 +1,1 @@
+kubectl create secret generic user --from-literal user_pass=$1  -n auth

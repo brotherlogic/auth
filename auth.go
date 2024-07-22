@@ -41,9 +41,9 @@ func main() {
 		}
 	}()
 
-	lis2, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
+	lis2, err := net.Listen("tcp", fmt.Sprintf(":%d", *internalPort))
 	if err != nil {
-		log.Fatalf("gramophile is unable to listen on the grpc port %v: %v", *port, err)
+		log.Fatalf("gramophile is unable to listen on the grpc port %v: %v", *internalPort, err)
 	}
 	gs := grpc.NewServer()
 	pb.RegisterAuthServiceServer(gs, s)
