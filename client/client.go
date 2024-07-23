@@ -19,8 +19,8 @@ type AuthInterceptor struct {
 	conn       *grpc.ClientConn
 }
 
-func NewExternalAuthInterceptor(ctx context.Context) (*AuthInterceptor, error) {
-	conn, err := grpc.NewClient("auth.brotherlogic-backend.com:80", grpc.WithTransportCredentials(insecure.NewCredentials()))
+func NewAuthInterceptor(ctx context.Context) (*AuthInterceptor, error) {
+	conn, err := grpc.NewClient("kclust1:30457", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		return nil, err
 	}
