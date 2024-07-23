@@ -14,6 +14,19 @@ import (
 type AuthInterceptor struct {
 	authClient pb.AuthServiceClient
 	cToken     string
+	conn       *grpc.ClientConn
+}
+
+func NewExternalAuthInterceptor(ctx context.Context) (*AuthInterceptor, error) {
+	conn, err := grpc.NewClient("auth.brotherlogic-backend.com:80")
+	if err != nil {
+		return nil, err
+	}
+
+	return &AuthInterceptor{
+		authClient: pb.NewAuthServiceClient(conn),
+		conn:       conn,
+	}, nil
 }
 
 func (a *AuthInterceptor) newToken(ctx context.Context) error {
