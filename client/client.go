@@ -3,6 +3,7 @@ package client
 import (
 	"context"
 	"fmt"
+	"log"
 	"os/user"
 
 	pb "github.com/brotherlogic/auth/proto"
@@ -22,6 +23,8 @@ func NewExternalAuthInterceptor(ctx context.Context) (*AuthInterceptor, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	log.Printf("Dialled auth")
 
 	return &AuthInterceptor{
 		authClient: pb.NewAuthServiceClient(conn),
