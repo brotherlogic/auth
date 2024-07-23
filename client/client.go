@@ -9,6 +9,7 @@ import (
 	pb "github.com/brotherlogic/auth/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/status"
 )
 
@@ -19,7 +20,7 @@ type AuthInterceptor struct {
 }
 
 func NewExternalAuthInterceptor(ctx context.Context) (*AuthInterceptor, error) {
-	conn, err := grpc.NewClient("auth.brotherlogic-backend.com:80")
+	conn, err := grpc.NewClient("auth.brotherlogic-backend.com:80", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		return nil, err
 	}
