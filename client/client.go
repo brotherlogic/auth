@@ -20,7 +20,7 @@ type AuthInterceptor struct {
 }
 
 func NewAuthInterceptor(ctx context.Context) (*AuthInterceptor, error) {
-	conn, err := grpc.NewClient("kclust1:30776", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.NewClient("auth.auth:8080", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		return nil, err
 	}
